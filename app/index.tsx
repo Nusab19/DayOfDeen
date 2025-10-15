@@ -1,34 +1,22 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Link } from "expo-router";
+import { Text, View } from "react-native";
 
 export default function Index() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Hmmm...</Text>
-      <Text
-        style={{
-          color: "#76fad9ff",
-          marginTop: 33,
-          fontSize: 19,
-          fontWeight: "700",
-        }}
-      >
+    <View className="bg-gray-900 h-full w-full flex items-center justify-center">
+      <Text className="text-sky-400 italic text-4xl font-bold my-5">
+        Hmmm...
+      </Text>
+      <Text className="text-sky-100 tracking-wider font-mono">
         The first impression is not bad
       </Text>
+
+      <Link
+        href="/about"
+        className="bg-emerald-600 text-white font-semibold p-2 rounded-md -pt-0.5 mt-10 hover:bg-emerald-700"
+      >
+        Go to About screen
+      </Link>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#25292e",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  text: {
-    color: "#fff",
-    fontSize: 33,
-    fontWeight: "900",
-    fontStyle: "italic",
-  },
-});
