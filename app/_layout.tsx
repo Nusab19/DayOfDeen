@@ -1,5 +1,6 @@
 import { Stack } from "expo-router";
-import "../global.css";
+
+import "./global.css";
 
 export default function RootLayout() {
   return (
@@ -12,6 +13,9 @@ export default function RootLayout() {
         name="about"
         options={{ title: "About", animation: "fade" }}
       />
+      {/* It's not needed tho. We're not gonna use it actually */}
+      {/* But we'll see */}
+      {/* <PortalHost /> */}
     </Stack>
   );
 }
