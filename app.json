@@ -19,7 +19,8 @@
         "monochromeImage": "./assets/arrow.png"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.nusab19.dayofdeen"
     },
     "web": {
       "output": "static",
@@ -44,6 +45,12 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "a5d88ca0-5969-4e31-b3c5-da30703c313c"
+      }
     }
   }
 }
