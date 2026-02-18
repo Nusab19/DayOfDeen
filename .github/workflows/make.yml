@@ -1,0 +1,80 @@
+name: Manual App Build
+on:
+  workflow_dispatch:
+    inputs:
+      platform:
+        description: "Target Platform"
+        required: true
+        default: "apk"
+        type: choice
+        options:
+          - apk
+          - ios
+          - both
+
+jobs:
+  build-android:
+    # Run if 'apk' or 'both' is selected
+    if: ${{ github.event.inputs.platform == 'apk' || github.event.inputs.platform == 'both' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🏗 Checkout repo
+        uses: actions/checkout@v4
+
+      - name: ⚡ Setup Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: ☕ Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: "zulu"
+          java-version: "17"
+          cache: "gradle"
+
+      - name: 📥 Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: 🛠 Prebuild Expo
+        run: bun expo prebuild --platform android
+
+      - name: 🚀 Build APK (Debug)
+        run: |
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleDebug --no-daemon
+
+      - name: 📤 Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-debug-android
+          path: android/app/build/outputs/apk/debug/app-debug.apk
+
+  build-ios:
+    # Run if 'ios' or 'both' is selected
+    if: ${{ github.event.inputs.platform == 'ios' || github.event.inputs.platform == 'both' }}
+    runs-on: macos-latest
+    steps:
+      - name: 🏗 Checkout repo
+        uses: actions/checkout@v4
+
+      - name: ⚡ Setup Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: 📥 Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: 🛠 Prebuild Expo
+        run: bun expo prebuild --platform ios
+
+      - name: 🚀 Build iOS (Simulator Build)
+        # Note: Building a physical device .ipa without secrets/certs is nearly impossible.
+        # This creates a .app for simulators.
+        run: |
+          cd ios
+          xcodebuild -workspace *.xcworkspace -scheme $(ls -d *.xcodeproj | sed 's/\.xcodeproj//') -configuration Debug -sdk iphonesimulator
+
+      - name: 📤 Upload iOS Build
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-debug-ios
+          path: ios/build/Build/Products/Debug-iphonesimulator/*.app
