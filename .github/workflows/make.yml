@@ -28,20 +28,22 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '17'
-          # Removed cache: 'gradle' from here because the folder doesn't exist yet
 
       - name: 📥 Install dependencies
         run: bun install --frozen-lockfile
 
       - name: 🛠 Prebuild Expo
-        # This creates the /android folder so the next step has something to cache
+        # Setting NODE_ENV here helps the Expo config step
+        env:
+          NODE_ENV: production
         run: bun expo prebuild --platform android
 
       - name: 🐘 Setup Gradle Cache
-        # This is the "Gold Standard" for Gradle caching in 2026
         uses: gradle/actions/setup-gradle@v3
 
       - name: 🚀 Build APK (Debug)
+        env:
+          NODE_ENV: production
         run: |
           cd android
           chmod +x gradlew
@@ -52,30 +54,3 @@ jobs:
         with:
           name: app-debug-android
           path: android/app/build/outputs/apk/debug/app-debug.apk
-
-  build-ios:
-    if: ${{ github.event.inputs.platform == 'ios' || github.event.inputs.platform == 'both' }}
-    runs-on: macos-latest
-    steps:
-      - name: 🏗 Checkout repo
-        uses: actions/checkout@v4
-
-      - name: ⚡ Setup Bun
-        uses: oven-sh/setup-bun@v2
-
-      - name: 📥 Install dependencies
-        run: bun install --frozen-lockfile
-
-      - name: 🛠 Prebuild Expo
-        run: bun expo prebuild --platform ios
-
-      - name: 🚀 Build iOS (Simulator Build)
-        run: |
-          cd ios
-          xcodebuild -workspace *.xcworkspace -scheme $(ls -d *.xcodeproj | sed 's/\.xcodeproj//') -configuration Debug -sdk iphonesimulator
-
-      - name: 📤 Upload iOS Build
-        uses: actions/upload-artifact@v4
-        with:
-          name: app-debug-ios
-          path: ios/build/Build/Products/Debug-iphonesimulator/*.app
