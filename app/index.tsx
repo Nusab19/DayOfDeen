@@ -10,13 +10,6 @@ export default function Index() {
       <Text className="text-sky-900 tracking-wider font-mono">
         The first impression is not bad
       </Text>
-
-      <Link
-        href="/about"
-        className="bg-emerald-600 text-white font-semibold p-2 rounded-md -pt-0.5 mt-10 hover:bg-emerald-700"
-      >
-        Go to About screen
-      </Link>
     </View>
   );
 }
