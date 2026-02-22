@@ -1,15 +1,41 @@
-import { Link } from "expo-router";
-import { Text, View } from "react-native";
+
+import React, { useEffect, useState } from 'react';
+import { View, Text, ActivityIndicator, SafeAreaView } from 'react-native';
+import { getLocation, LocationData } from '../lib/prayer-service';
+import LocationSetup from '../components/LocationSetup';
+import PrayerTimesDisplay from '../components/PrayerTimesDisplay';
+import './global.css';
 
 export default function Index() {
+  const [location, setLocation] = useState<LocationData | null>(null);
+  const [checking, setChecking] = useState(true);
+
+  const checkLocation = async () => {
+    setChecking(true);
+    const savedLoc = await getLocation();
+    setLocation(savedLoc);
+    setChecking(false);
+  };
+
+  useEffect(() => {
+    checkLocation();
+  }, []);
+
+  if (checking) {
+    return (
+      <View className="flex-1 items-center justify-center bg-white">
+        <ActivityIndicator size="large" color="#0ea5e9" />
+      </View>
+    );
+  }
+
   return (
-    <View className="bg-secondary h-full w-full flex items-center justify-center">
-      <Text className="text-sky-400 italic text-4xl font-bold my-5">
-        Hmmm...
-      </Text>
-      <Text className="text-sky-900 tracking-wider font-mono">
-        The first impression is not bad
-      </Text>
-    </View>
+    <SafeAreaView className="flex-1 bg-white">
+      {!location ? (
+        <LocationSetup onLocationSet={checkLocation} />
+      ) : (
+        <PrayerTimesDisplay location={location} onResetLocation={checkLocation} />
+      )}
+    </SafeAreaView>
   );
 }
