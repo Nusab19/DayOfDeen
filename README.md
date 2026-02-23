@@ -1,36 +1,50 @@
-# ⛔ Still in Development, Not ready yet
+# Welcome to your Expo app 👋
 
-# DayOfDeen
-An open source multi-platform app for every day Prayer time and beyond. No ads, ever!
+This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
+## Get started
 
-## Why?
+1. Install dependencies
 
-I've been using **Muslim Day** app since 2020. I always admired it for having no ads and providing this for the Ummah.
+   ```bash
+   npm install
+   ```
 
-But after recent updates, the app is full of unnecessary junks, useless features and unskipable ads. Their goal was once to `"Never show ads"`.
-<br>
-They don't show *unacceptable* ads like others. That's a good thing.
-But at the end of the day, `ADS are ADS` that's it.
-<br>
+2. Start the app
 
-However, compared to others, they are *indeed* doing a better job at it. **_"Compared to others"_**
+   ```bash
+   npx expo start
+   ```
 
-Other similar apps like, `WeMuslim`, `নামাজের সময়সূচী`, `Muslim Pro` shows totally unacceptable ads. And literally forces you to _"Pay a subscription fee"_.
+In the output, you'll find options to open the app in a
 
-Before we make a stable version of `Day of Deen` app, you should use **Muslim Day**. After we're finished, you can decide which one you prefer. (`I'm gonna prefer mine, of course. Cuz I made it!`)
+- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
+- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
+- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
+- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
 
-<br><br><br><br>
-So if I stay alive, I will definitely make a simpler, ad free, open-source alternative to all the other Prayer Time app, **InShaAllah**.
+You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
 
-> I would've started right away, but I have some very important exams coming soon. Therefore, I can't start it right now.
-> But, here's the repo. And I will come back, InShaAllah.
+## Get a fresh project
 
-<br>
-<br>
-<br>
+When you're ready, run:
 
+```bash
+npm run reset-project
 ```
-- Nusab Taha
-  October 14, 2025
-```
+
+This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+
+## Learn more
+
+To learn more about developing your project with Expo, look at the following resources:
+
+- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
+- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+
+## Join the community
+
+Join our community of developers creating universal apps.
+
+- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
+- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
